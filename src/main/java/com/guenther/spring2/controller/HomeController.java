@@ -21,6 +21,10 @@ public class HomeController {
     @RequestMapping("/login")
     public ModelAndView login()
     {
+        //if the user is already logged in,
+        //let's display a message to that effect
+
+        
         ModelAndView mv = new
                 ModelAndView("login");
         return mv;
@@ -50,7 +54,7 @@ public class HomeController {
         //if they're not logged in:
 
 
-        
+
         ModelAndView mv = new
                 ModelAndView("preferences");
         return mv;
