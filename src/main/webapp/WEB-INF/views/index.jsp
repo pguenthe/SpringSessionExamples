@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Welcome</title>
+    <link rel="stylesheet" href="/resources/styles.css">
 </head>
 <%
 //if session values aren't set, set to default
@@ -33,6 +34,16 @@ secrets of sessions for you.</p>
 //    out.print("<p>" + session.getAttribute("username")
 //            + ", you are already logged in.</p>");
 //    }
+
+    //go through the cookies and look for the right name
+    Cookie[] cookies = request.getCookies();
+    for (Cookie c : cookies) {
+        if (c.getName().equals("secretSeen")
+                && c.getValue().equals("true")) {
+            out.println("<p><strong>You've seen the " +
+                    "secret!</strong></p>");
+        }
+    }
 %>
 
 </body>

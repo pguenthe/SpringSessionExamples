@@ -1,10 +1,13 @@
 package com.guenther.spring2.controller;
 
+import com.sun.deploy.net.HttpResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -24,7 +27,7 @@ public class HomeController {
         //if the user is already logged in,
         //let's display a message to that effect
 
-        
+
         ModelAndView mv = new
                 ModelAndView("login");
         return mv;
@@ -74,13 +77,19 @@ public class HomeController {
     }
 
     @RequestMapping("/secret")
-    public ModelAndView secret(HttpSession session)
+    public ModelAndView secret(HttpSession session,
+                               HttpServletResponse response)
     {
         if (session.getAttribute("username") == null) {
             return new ModelAndView("error", "errmsg",
                     "You must be logged in. "
                     + "Please visit the <a href=\"/login\">Login Page</a>");
         }
+
+        //we're only using a cookie here as an example of
+        //  using a cookie.  Since we're using sessions already,
+        //  we'd really just do this with a session attribute
+        response.addCookie(new Cookie("secretSeen", "true"));
 
         ModelAndView mv = new
                 ModelAndView("secret");
